@@ -18,7 +18,7 @@ U8G2LOG u8g2log;
 uint8_t u8log_buffer[U8LOG_WIDTH * U8LOG_HEIGHT];
 
 void setup(void) {
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.setTimeout(10);
 
   Wire.begin(SDA_PIN, SCL_PIN);
@@ -29,12 +29,17 @@ void setup(void) {
   small_oled.clearBuffer();
   small_oled.setFont(u8g2_font_ncenB08_tr);
   small_oled.drawStr(0, 10, "baud rate:");
-  small_oled.drawStr(0, 20, "115200");
+  small_oled.drawStr(0, 20, "9600");
 
   small_oled.sendBuffer();
 
   big_oled.clearBuffer();
-  big_oled.setFont(u8g2_font_tom_thumb_4x6_mf);
+  //https://github.com/olikraus/u8g2/wiki/fntlist8
+  //big_oled.setFont(u8g2_font_tom_thumb_4x6_mf);
+  big_oled.setFont(  u8g2_font_tiny5duo_tf);
+  big_oled.drawStr(0, 10, "baud rate:");  
+  //big_oled.setFont(u8g2_font_squeezed_b6_tr);
+  big_oled.sendBuffer();
   u8g2log.begin(big_oled, U8LOG_WIDTH, U8LOG_HEIGHT, u8log_buffer);
 
   u8g2log.setLineHeightOffset(0);  // set extra space between lines in pixel, this can be negative
